@@ -60,3 +60,16 @@ at App
               </div>)
   )}
 ```
+### step 3 multiple sticker 
+
+- stickers are grouped under /src/stickers
+- they are imported at App.js
+- map is used to select from more than one sticker
+```
+ {
+  stickers.map((sticker) => (
+    <button onClick={() => setSticker(sticker)}>
+      <img src={sticker.url} />
+    </button>)
+  )}
+```

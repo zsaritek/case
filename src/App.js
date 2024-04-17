@@ -2,7 +2,14 @@ import { useState } from "react";
 import { createUseStyles } from "react-jss";
 import { useWebcamCapture } from "./useWebcamCapture";
 // import logo from './logo.svg'
-import logo from "./slap.png";
+import slap from "./stickers/slap.png";
+import heart from "./stickers/heart.png";
+import sleepy from "./stickers/sleepy.png";
+import selfie from "./stickers/selfie.png";
+import hungry from "./stickers/hungry.png";
+import girin from "./stickers/girin.png";
+import friends from "./stickers/friends.png";
+import brain from "./stickers/brain.png";
 
 import { Link, Switch, Route, Redirect } from "react-router-dom";
 
@@ -64,7 +71,7 @@ const useStyles = createUseStyles((theme) => ({
   },
 }));
 
-const stickers = [logo].map((url) => {
+const stickers = [slap, heart, sleepy, selfie, hungry, girin, friends, brain, selfie].map((url) => {
   const img = document.createElement("img");
   img.src = url;
   return { img, url };
@@ -119,9 +126,12 @@ function App(props) {
             </section>
             <section className={classes.Stickers}>
               Step 2: select your sticker...
-              <button onClick={() => setSticker(stickers[0])}>
-                <img src={stickers[0].url} />
-              </button>
+              {
+                stickers.map((sticker) => (
+                  <button onClick={() => setSticker(sticker)}>
+                    <img src={sticker.url} />
+                  </button>)
+                )}
             </section>
             <section className={classes.Main}>
               Step three: Slap your self!
