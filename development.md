@@ -73,3 +73,10 @@ at App
     </button>)
   )}
 ```
+
+### step 4 cleanup
+
+- removed unnecessary route(readme)
+- removed switch(there is only one page)
+- removed step names 
+
