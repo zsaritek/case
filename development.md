@@ -80,3 +80,26 @@ at App
 - removed switch(there is only one page)
 - removed step names 
 
+
+### step 5 default message for the sticker
+
+- I defined default message for each sticker because Slappe could not be use for other stickers. 
+```const stickers = [
+  {
+    url: slap,
+    title: "SLAPPE!"
+  },```
+
+- Set default title for captured image is changed.
+```const [title, setTitle] = useState('...');```
+
+- When sticker selected, Title is set with setTitle.
+``` {
+            stickers.map((sticker) => (
+              <button onClick={() => {
+                setSticker(sticker)
+                setTitle(sticker.title)
+              }
+              }>
+             ```
+

@@ -69,11 +69,45 @@ const useStyles = createUseStyles((theme) => ({
   },
 }));
 
-const stickers = [slap, heart, sleepy, selfie, hungry, girin, friends, brain, selfie].map((url) => {
+const stickers = [
+  {
+    url: slap,
+    title: "SLAPPE!"
+  },
+  {
+    url: heart,
+    title: "LOVELY!"
+  },
+  {
+    url: sleepy,
+    title: "SLEEPY!"
+  },
+  {
+    url: selfie,
+    title: "SELFIE!"
+  },
+  {
+    url: hungry,
+    title: "HUNGRY!"
+  },
+  {
+    url: girin,
+    title: "GIRIN!"
+  },
+  {
+    url: friends,
+    title: "FRIENDLY!"
+  },
+  {
+    url: brain,
+    title: "SMART!"
+  }
+].map(({ url, title }) => {
   const img = document.createElement("img");
   img.src = url;
-  return { img, url };
+  return { img, url, title };
 });
+
 
 function App(props) {
   // css classes from JSS hook
@@ -81,7 +115,7 @@ function App(props) {
   // currently active sticker
   const [sticker, setSticker] = useState();
   // title for the picture that will be captured
-  const [title, setTitle] = useState("SLAPPE!");
+  const [title, setTitle] = useState('...');
 
   // webcam behavior hook
   const [
@@ -112,7 +146,11 @@ function App(props) {
         <section className={classes.Stickers}>
           {
             stickers.map((sticker) => (
-              <button onClick={() => setSticker(sticker)}>
+              <button onClick={() => {
+                setSticker(sticker)
+                setTitle(sticker.title)
+              }
+              }>
                 <img src={sticker.url} alt="sticker" />
               </button>)
             )}
