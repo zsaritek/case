@@ -195,3 +195,11 @@ useEffect(() => {
 
 - background christmas theme
 - snow effect (npm i react-snowfall)
+
+### step 9 play sound 
+- npm install use-sound --save
+- when the page is open, one time sound play by useEffect()
+
+### step 10 style
+
+- gallery and sticker adjustment
