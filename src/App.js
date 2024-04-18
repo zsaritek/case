@@ -61,6 +61,11 @@ const useStyles = createUseStyles((theme) => ({
     },
   },
   Stickers: {
+    display: "flex",
+    justifyContent: "center",
+    "& button": {
+      margin: "5px",
+    },
     "& img": {
       height: "4rem",
     },
@@ -69,8 +74,19 @@ const useStyles = createUseStyles((theme) => ({
     "& img": {
       height: "16rem",
     },
+    "& h2": {
+      marginBottom: "20px",
+      color: "black",
+    },
+  },
+  GalleryFlex: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    columnGap: "20px",
   },
   Picture: {
+    margin: "35px",
     background: "black",
     padding: 4,
     position: "relative",
@@ -99,6 +115,7 @@ const useStyles = createUseStyles((theme) => ({
     padding: '0px',
     borderRadius: '5px',
     backgroundColor: 'transparent',
+    zIndex: 10,
   },
   ShareButton: {
     marginBottom: '5px',
@@ -176,7 +193,7 @@ function App(props) {
 
   const handleShare = (dataUri, title) => {
     console.log(`Sharing picture: ${title}, dataUri: ${dataUri}`);
-    setSharePlatform(null); // Close the dropdown after sharing
+    setSharePlatform(null);
   };
 
   useEffect(() => {
@@ -236,38 +253,77 @@ function App(props) {
         </section>
         <br />
         <section className={classes.Gallery}>
-          Cherish this moment forever
-          <br />
-          {pictures && pictures.map((picture, index) =>
-          (<div className={classes.Picture}>
-            <img src={picture.dataUri} alt={picture.title} />
-            <h3>{picture.title}</h3>
-            <div className="button-container">
-              <div className="dropdown">
-                <button className="dropdown-toggle" onClick={() => {
-                  setSelectedImageIndex(index)
-                  setSharePlatform(prev => prev === null ? 'open' : null)
-                }}>
-                  <FiShare2 />
-                </button>
-                {sharePlatform && selectedImageIndex === index && (
-                  <div className={classes.ShareButtons}>
-                    <button onClick={() => handleShare(picture.dataUri, `captured-${index}`, 'Facebook')}>
-                      <FiFacebook />
-                    </button>
-                    <button onClick={() => handleShare(picture.dataUri, `captured-${index}`, 'Instagram')}>
-                      <FiInstagram />
-                    </button>
-                    <button onClick={() => handleShare(picture.dataUri, `captured-${index}`, 'Twitter')}>
-                      <FiTwitter />
+          <div className={classes.GalleryFlex}>
+            <h2>Gallery</h2>
+          </div>
+
+          <div className={classes.GalleryFlex}>
+            {pictures &&
+              pictures.map((picture, index) => (
+                <div className={classes.Picture} key={index}>
+                  <img src={picture.dataUri} alt={picture.title} />
+                  <h3>{picture.title}</h3>
+                  <div className="button-container">
+                    <div className="dropdown">
+                      <button
+                        className="dropdown-toggle"
+                        onClick={() => {
+                          setSelectedImageIndex(index);
+                          setSharePlatform(
+                            (prev) => (prev === null ? "open" : null)
+                          );
+                        }}
+                      >
+                        <FiShare2 />
+                      </button>
+                      {sharePlatform && selectedImageIndex === index && (
+                        <div className={classes.ShareButtons}>
+                          <button
+                            onClick={() => handleShare(
+                              picture.dataUri,
+                              `captured-${index}`,
+                              "Facebook"
+                            )
+                            }
+                          >
+                            <FiFacebook />
+                          </button>
+                          <button
+                            onClick={() =>
+                              handleShare(
+                                picture.dataUri,
+                                `captured-${index}`,
+                                "Instagram"
+                              )
+                            }
+                          >
+                            <FiInstagram />
+                          </button>
+                          <button
+                            onClick={() =>
+                              handleShare(
+                                picture.dataUri,
+                                `captured-${index}`,
+                                "Twitter"
+                              )
+                            }
+                          >
+                            <FiTwitter />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                    <button
+                      onClick={() =>
+                        handleDownload(picture.dataUri, `captured-${index}`)
+                      }
+                    >
+                      <FiDownload />
                     </button>
                   </div>
-                )}
-              </div>
-              <button onClick={() => handleDownload(picture.dataUri, `captured-${index}`)}><FiDownload /></button>
-            </div>
-          </div>)
-          )}
+                </div>
+              ))}
+          </div>
         </section>
       </main>
     </div>
