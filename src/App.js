@@ -6,12 +6,9 @@ import { FiDownload, FiShare2, FiFacebook, FiInstagram, FiTwitter } from 'react-
 
 import slap from "./stickers/slap.png";
 import heart from "./stickers/heart.png";
-import sleepy from "./stickers/sleepy.png";
-import selfie from "./stickers/selfie.png";
-import hungry from "./stickers/hungry.png";
-import girin from "./stickers/girin.png";
-import friends from "./stickers/friends.png";
-import brain from "./stickers/brain.png";
+import ring from "./stickers/ring.png";
+import reindeer from "./stickers/reindeer.png"
+import santaHat from "./stickers/santaHat.png"
 
 import backgroundImage from "./christmas.jpg";
 
@@ -134,29 +131,17 @@ const stickers = [
     title: "LOVELY!"
   },
   {
-    url: sleepy,
-    title: "SLEEPY!"
+    url: ring,
+    title: "RING THE BELL!"
   },
   {
-    url: selfie,
-    title: "SELFIE!"
+    url: reindeer,
+    title: "REINDEER!"
   },
   {
-    url: hungry,
-    title: "HUNGRY!"
+    url: santaHat,
+    title: "HO HO HOOOO!"
   },
-  {
-    url: girin,
-    title: "GIRIN!"
-  },
-  {
-    url: friends,
-    title: "FRIENDLY!"
-  },
-  {
-    url: brain,
-    title: "SMART!"
-  }
 ].map(({ url, title }) => {
   const img = document.createElement("img");
   img.src = url;
