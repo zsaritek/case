@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { createUseStyles } from "react-jss";
 import { useWebcamCapture } from "./useWebcamCapture";
@@ -12,16 +13,22 @@ import girin from "./stickers/girin.png";
 import friends from "./stickers/friends.png";
 import brain from "./stickers/brain.png";
 
+import backgroundImage from "./christmas.jpg";
+
+// Import the background image file
 const useStyles = createUseStyles((theme) => ({
   "@global body": {
-    background: theme.palette.background,
+    // background: theme.palette.background,
+    background: `url(${backgroundImage})`, // Use the imported background image
+    backgroundSize: "cover",
+    backgroundAttachment: "fixed",
     color: theme.palette.text,
     fontFamily: "sans-serif",
   },
 
   App: {
     padding: "20px",
-    background: theme.palette.primary,
+    // background: theme.palette.primary,
     maxWidth: "800px",
     minHeight: "600px",
     margin: "auto",
@@ -38,6 +45,9 @@ const useStyles = createUseStyles((theme) => ({
   },
   Main: {
     background: theme.palette.secondary,
+    border: "10px solid black",
+    borderRadius: "8px",
+    overflow: "hidden",
 
     "& canvas": {
       width: "100%",
