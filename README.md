@@ -104,11 +104,10 @@ react-snowfall: Component for adding snowfall effect to React applications.
 App.js: Main component containing the webcam capture functionality and UI elements.
 index.js: Entry point of the application where React is rendered.
 theme.js: File defining the theme for JSS styles.
-useWebcamCapture.js: Custom hook for handling webcam capture functionality.
-/stickers: Directory containing Christmas-themed sticker images.
+stickers: Directory containing Christmas-themed sticker images.
 christmas.mp3: Background music file.
 christmas.jpg: Background image file.
-reportWebVitals.js: Script for measuring web vitals in the application.
+
 
 ## For more detailed technical information, refer to the development.md file.
 
