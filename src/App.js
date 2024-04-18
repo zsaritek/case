@@ -11,6 +11,8 @@ import reindeer from "./stickers/reindeer.png"
 import santaHat from "./stickers/santaHat.png"
 
 import backgroundImage from "./christmas.jpg";
+import useSound from 'use-sound';
+import christmas from "./christmas.mp3";
 
 const useStyles = createUseStyles((theme) => ({
   "@global body": {
@@ -158,6 +160,7 @@ function App(props) {
   const [title, setTitle] = useState('...');
   const [sharePlatform, setSharePlatform] = useState();
   const [selectedImageIndex, setSelectedImageIndex] = useState();
+  const [play] = useSound(christmas)
 
   // webcam behavior hook
   const [
@@ -180,6 +183,10 @@ function App(props) {
     console.log(`Sharing picture: ${title}, dataUri: ${dataUri}`);
     setSharePlatform(null);
   };
+
+  useEffect(() => {
+    play()
+  }, [play])
 
   useEffect(() => {
     const handleEscKey = (event) => {

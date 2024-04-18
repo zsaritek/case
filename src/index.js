@@ -5,7 +5,7 @@ import { ThemeProvider } from "react-jss";
 import { BrowserRouter } from "react-router-dom";
 
 import { theme } from "./theme";
-import Snowfall from 'react-snowfall'
+import Snowfall from 'react-snowfall';
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
