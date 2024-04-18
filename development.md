@@ -190,3 +190,8 @@ useEffect(() => {
   </div>)
   )}
 ```
+
+### step 8 concept
+
+- background christmas theme
+- snow effect (npm i react-snowfall)
