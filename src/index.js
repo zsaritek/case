@@ -5,6 +5,7 @@ import { ThemeProvider } from "react-jss";
 import { BrowserRouter } from "react-router-dom";
 
 import { theme } from "./theme";
+import Snowfall from 'react-snowfall'
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
@@ -12,6 +13,7 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
+        <Snowfall />
         <App />
       </ThemeProvider>
     </BrowserRouter>
