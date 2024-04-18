@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { createUseStyles } from "react-jss";
 import { useWebcamCapture } from "./useWebcamCapture";
-// import logo from './logo.svg'
+import { FiDownload, FiShare2, FiFacebook, FiInstagram, FiTwitter } from 'react-icons/fi';
+
 import slap from "./stickers/slap.png";
 import heart from "./stickers/heart.png";
 import sleepy from "./stickers/sleepy.png";
@@ -116,6 +117,8 @@ function App(props) {
   const [sticker, setSticker] = useState();
   // title for the picture that will be captured
   const [title, setTitle] = useState('...');
+  const [sharePlatform, setSharePlatform] = useState();
+  const [selectedImageIndex, setSelectedImageIndex] = useState();
 
   // webcam behavior hook
   const [
@@ -124,6 +127,20 @@ function App(props) {
     handleCapture, // callback function to trigger taking the picture
     pictures, // latest captured picture data object
   ] = useWebcamCapture(sticker?.img, title);
+
+  const handleDownload = (dataUri, title) => {
+    const link = document.createElement('a');
+    link.href = dataUri;
+    link.download = `${title}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleShare = (dataUri, title) => {
+    console.log(`Sharing picture: ${title}, dataUri: ${dataUri}`);
+    setSharePlatform(null); // Close the dropdown after sharing
+  };
 
   useEffect(() => {
     const handleEscKey = (event) => {
@@ -185,6 +202,29 @@ function App(props) {
           (<div className={classes.Picture} key={index}>
             <img src={picture.dataUri} alt={picture.title} />
             <h3>{picture.title}</h3>
+            <button onClick={() => handleDownload(picture.dataUri, `captured-${index}`)}><FiDownload /></button>
+            <div className="dropdown">
+              <button className="dropdown-toggle" onClick={() => {
+                setSelectedImageIndex(index)
+                setSharePlatform(prev => prev === null ? 'open' : null)
+              }
+              }>
+                <FiShare2 />
+              </button>
+              {sharePlatform && selectedImageIndex === index && (
+                <div className="dropdown-menu">
+                  <button onClick={() => handleShare(picture.dataUri, `captured-${index}`, 'Facebook')}>
+                    <FiFacebook />
+                  </button>
+                  <button onClick={() => handleShare(picture.dataUri, `captured-${index}`, 'Instagram')}>
+                    <FiInstagram />
+                  </button>
+                  <button onClick={() => handleShare(picture.dataUri, `captured-${index}`, 'Twitter')}>
+                    <FiTwitter />
+                  </button>
+                </div>
+              )}
+            </div>
           </div>)
           )}
         </section>

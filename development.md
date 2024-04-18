@@ -137,3 +137,56 @@ useEffect(() => {
     [canvasRef, title]
   );
 ```
+
+### step 7 download and share
+
+- I used react-icons
+- added two button, *download* and *shared*  
+- implemented handle function
+- for shared, I left empty, only console.log
+
+```
+ const handleDownload = (dataUri, title) => {
+    const link = document.createElement('a');
+    link.href = dataUri;
+    link.download = `${title}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleShare = (dataUri, title) => {
+    console.log(`Sharing picture: ${title}, dataUri: ${dataUri}`);
+    setSharePlatform(null); // Close the dropdown after sharing
+  };
+
+  ...
+
+   <button onClick={() => handleDownload(picture.dataUri, `captured-${index}`)}>
+   <FiDownload /></button>
+    
+    <div className="dropdown">
+      <button className="dropdown-toggle" onClick={() => {
+        setSelectedImageIndex(index)
+        setSharePlatform(prev => prev === null ? 'open' : null)
+      }
+      }>
+        <FiShare2 />
+      </button>
+      {sharePlatform && selectedImageIndex === index && (
+        <div className="dropdown-menu">
+          <button onClick={() => handleShare(picture.dataUri, `captured-${index}`, 'Facebook')}>
+            <FiFacebook />
+          </button>
+          <button onClick={() => handleShare(picture.dataUri, `captured-${index}`, 'Instagram')}>
+            <FiInstagram />
+          </button>
+          <button onClick={() => handleShare(picture.dataUri, `captured-${index}`, 'Twitter')}>
+            <FiTwitter />
+          </button>
+        </div>
+      )}
+    </div>
+  </div>)
+  )}
+```
