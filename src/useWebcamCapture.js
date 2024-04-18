@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-
+// custom hook  and state variables
 export const useWebcamCapture = (stickerImg, title) => {
   const [videoRef, setVideoRef] = useState();
   const [canvasRef, setCanvasRef] = useState();
@@ -14,7 +14,7 @@ export const useWebcamCapture = (stickerImg, title) => {
   }, []);
 
   const [initialized, setInitialized] = useState(false);
-
+  // effect to initialize webcam 
   useEffect(() => {
     if (videoRef && canvasRef && !initialized) {
       navigator.mediaDevices
@@ -97,6 +97,7 @@ export const useWebcamCapture = (stickerImg, title) => {
     }
   }, [canvasRef]);
 
+  // callback function for capturing image
   const onCapture = useCallback(
     (ev) => {
       if (stickerImg && canvasRef) {

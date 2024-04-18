@@ -1,28 +1,32 @@
+//React and hooks imports
 import React from "react";
 import { useState, useEffect } from "react";
 import { createUseStyles } from "react-jss";
 import { useWebcamCapture } from "./useWebcamCapture";
 import { FiDownload, FiShare2, FiFacebook, FiInstagram, FiTwitter } from 'react-icons/fi';
-
+// Sticker image imports
 import slap from "./stickers/slap.png";
 import heart from "./stickers/heart.png";
 import ring from "./stickers/ring.png";
 import reindeer from "./stickers/reindeer.png"
 import santaHat from "./stickers/santaHat.png"
-
+// Background image and music imports
 import backgroundImage from "./christmas.jpg";
 import useSound from 'use-sound';
 import christmas from "./christmas.mp3";
 
+// JSS styles 
+// background-image
 const useStyles = createUseStyles((theme) => ({
   "@global body": {
     background: `url(${backgroundImage})`,
     backgroundSize: "cover",
     backgroundAttachment: "fixed",
     color: theme.palette.text,
-    fontFamily: "sans-serif",
+    fontFamily: "lobster",
+    backdropFilter: "blur(2px)",
   },
-
+  // component style
   App: {
     padding: "20px",
     maxWidth: "800px",
@@ -34,16 +38,17 @@ const useStyles = createUseStyles((theme) => ({
   },
   Header: {
     textAlign: "center",
-    fontFamily: "sans-serif",
+    fontFamily: "lobster",
     color: "white",
     textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)"
   },
   HeaderContent: {
     color: "white",
     textAlign: "center",
-    fontFamily: "sans-serif",
+    fontFamily: "lobster",
+    textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)"
   },
-
+  // background for webcam 
   Main: {
     background: theme.palette.secondary,
     border: "10px solid black",
@@ -123,6 +128,7 @@ const useStyles = createUseStyles((theme) => ({
   },
 }));
 
+// sticker data 
 const stickers = [
   {
     url: slap,
@@ -150,7 +156,7 @@ const stickers = [
   return { img, url, title };
 });
 
-
+// state variables
 function App(props) {
   // css classes from JSS hook
   const classes = useStyles(props);
@@ -169,7 +175,7 @@ function App(props) {
     handleCapture, // callback function to trigger taking the picture
     pictures, // latest captured picture data object
   ] = useWebcamCapture(sticker?.img, title);
-
+  // functions for handling download and actions
   const handleDownload = (dataUri, title) => {
     const link = document.createElement('a');
     link.href = dataUri;
@@ -183,11 +189,11 @@ function App(props) {
     console.log(`Sharing picture: ${title}, dataUri: ${dataUri}`);
     setSharePlatform(null);
   };
-
+  // background music effect
   useEffect(() => {
     play()
   }, [play])
-
+  // keydown event listener 
   useEffect(() => {
     const handleEscKey = (event) => {
       if (event.key === 'Escape') {
@@ -205,9 +211,9 @@ function App(props) {
   return (
     <div className={classes.App}>
       <header className={classes.Header}>
-        <h1>Unleash Your Inner Sparkle: Snap, Stick, and Share!</h1>
+        <h1>Spread Joy with Dynamic Backgrounds and Cheerful Stickers!</h1>
         <p className={classes.HeaderContent}>
-          Ready to level up your selfie game? You're in luck! Dive into our sticker wonderland and add some serious flair to your photos. Take your pick, snap a pic, and let's make your social media sparkle like never before.
+          Christmas-themed webcam sticker app offers a delightful way to celebrate the holiday season and spread joy to all. With its festive stickers, dynamic background, and user-friendly features, the app brings a touch of magic to every photo.Don't forget to turn up the sound!
         </p>
       </header>
       <main>
