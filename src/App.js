@@ -15,11 +15,9 @@ import brain from "./stickers/brain.png";
 
 import backgroundImage from "./christmas.jpg";
 
-// Import the background image file
 const useStyles = createUseStyles((theme) => ({
   "@global body": {
-    // background: theme.palette.background,
-    background: `url(${backgroundImage})`, // Use the imported background image
+    background: `url(${backgroundImage})`,
     backgroundSize: "cover",
     backgroundAttachment: "fixed",
     color: theme.palette.text,
@@ -28,7 +26,6 @@ const useStyles = createUseStyles((theme) => ({
 
   App: {
     padding: "20px",
-    // background: theme.palette.primary,
     maxWidth: "800px",
     minHeight: "600px",
     margin: "auto",
@@ -37,17 +34,23 @@ const useStyles = createUseStyles((theme) => ({
     },
   },
   Header: {
-    "&  h1": {
-      fontFamily: "sans-serif",
-      cursor: "pointer",
-      fontSize: "4rem",
-    },
+    textAlign: "center",
+    fontFamily: "sans-serif",
+    color: "white",
+    textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)"
   },
+  HeaderContent: {
+    color: "white",
+    textAlign: "center",
+    fontFamily: "sans-serif",
+  },
+
   Main: {
     background: theme.palette.secondary,
     border: "10px solid black",
     borderRadius: "8px",
     overflow: "hidden",
+
 
     "& canvas": {
       width: "100%",
@@ -77,6 +80,30 @@ const useStyles = createUseStyles((theme) => ({
       textAlign: "center",
       width: "100%",
     },
+    '& .button-container': {
+      display: 'flex',
+      width: '120px',
+    },
+    '& button': {
+      marginRight: '10px',
+      width: '40px',
+    }
+  },
+  ShareButtons: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    position: 'absolute',
+    top: '100%',
+    left: 0,
+    padding: '0px',
+    borderRadius: '5px',
+    backgroundColor: 'transparent',
+  },
+  ShareButton: {
+    marginBottom: '5px',
+    border: 'none',
+    cursor: 'pointer',
   },
 }));
 
@@ -169,21 +196,22 @@ function App(props) {
   return (
     <div className={classes.App}>
       <header className={classes.Header}>
-        <h1>SlapSticker</h1>
-        <p>
-          Have you ever said something so dumb, you just wanted to slap
-          yourself? Well now you can!
+        <h1>Unleash Your Inner Sparkle: Snap, Stick, and Share!</h1>
+        <p className={classes.HeaderContent}>
+          Ready to level up your selfie game? You're in luck! Dive into our sticker wonderland and add some serious flair to your photos. Take your pick, snap a pic, and let's make your social media sparkle like never before.
         </p>
       </header>
       <main>
         <section className={classes.Gallery}>
-          Message:
+          <label htmlFor="concept" style={{ color: 'black', fontWeight: 'bold' }}>Concept:</label>
           <input
             type="text"
+            id="concept"
             value={title}
             onChange={(ev) => setTitle(ev.target.value)}
           />
         </section>
+        <br />
         <section className={classes.Stickers}>
           {
             stickers.map((sticker) => (
@@ -196,6 +224,7 @@ function App(props) {
               </button>)
             )}
         </section>
+        <br />
         <section className={classes.Main}>
           <video ref={handleVideoRef} />
           <canvas
@@ -205,35 +234,37 @@ function App(props) {
             onClick={handleCapture}
           />
         </section>
+        <br />
         <section className={classes.Gallery}>
           Cherish this moment forever
           <br />
           {pictures && pictures.map((picture, index) =>
-          (<div className={classes.Picture} key={index}>
+          (<div className={classes.Picture}>
             <img src={picture.dataUri} alt={picture.title} />
             <h3>{picture.title}</h3>
-            <button onClick={() => handleDownload(picture.dataUri, `captured-${index}`)}><FiDownload /></button>
-            <div className="dropdown">
-              <button className="dropdown-toggle" onClick={() => {
-                setSelectedImageIndex(index)
-                setSharePlatform(prev => prev === null ? 'open' : null)
-              }
-              }>
-                <FiShare2 />
-              </button>
-              {sharePlatform && selectedImageIndex === index && (
-                <div className="dropdown-menu">
-                  <button onClick={() => handleShare(picture.dataUri, `captured-${index}`, 'Facebook')}>
-                    <FiFacebook />
-                  </button>
-                  <button onClick={() => handleShare(picture.dataUri, `captured-${index}`, 'Instagram')}>
-                    <FiInstagram />
-                  </button>
-                  <button onClick={() => handleShare(picture.dataUri, `captured-${index}`, 'Twitter')}>
-                    <FiTwitter />
-                  </button>
-                </div>
-              )}
+            <div className="button-container">
+              <div className="dropdown">
+                <button className="dropdown-toggle" onClick={() => {
+                  setSelectedImageIndex(index)
+                  setSharePlatform(prev => prev === null ? 'open' : null)
+                }}>
+                  <FiShare2 />
+                </button>
+                {sharePlatform && selectedImageIndex === index && (
+                  <div className={classes.ShareButtons}>
+                    <button onClick={() => handleShare(picture.dataUri, `captured-${index}`, 'Facebook')}>
+                      <FiFacebook />
+                    </button>
+                    <button onClick={() => handleShare(picture.dataUri, `captured-${index}`, 'Instagram')}>
+                      <FiInstagram />
+                    </button>
+                    <button onClick={() => handleShare(picture.dataUri, `captured-${index}`, 'Twitter')}>
+                      <FiTwitter />
+                    </button>
+                  </div>
+                )}
+              </div>
+              <button onClick={() => handleDownload(picture.dataUri, `captured-${index}`)}><FiDownload /></button>
             </div>
           </div>)
           )}
