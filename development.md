@@ -84,22 +84,56 @@ at App
 ### step 5 default message for the sticker
 
 - I defined default message for each sticker because Slappe could not be use for other stickers. 
-```const stickers = [
+```
+const stickers = [
   {
     url: slap,
     title: "SLAPPE!"
-  },```
+  },
+```
 
 - Set default title for captured image is changed.
 ```const [title, setTitle] = useState('...');```
 
 - When sticker selected, Title is set with setTitle.
-``` {
-            stickers.map((sticker) => (
-              <button onClick={() => {
-                setSticker(sticker)
-                setTitle(sticker.title)
-              }
-              }>
-             ```
+``` 
+{
+  stickers.map((sticker) => (
+    <button onClick={() => {
+      setSticker(sticker)
+      setTitle(sticker.title)
+    }
+}
+```
 
+### step 6 default message for the sticker
+
+- handle *esc* keyboard to unselect sticker
+```
+useEffect(() => {
+    const handleEscKey = (event) => {
+      if (event.key === 'Escape') {
+        // reset sticker and title
+        setSticker()
+        setTitle('...')
+      }
+    };
+    document.addEventListener('keydown', handleEscKey);
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, []);
+```
+
+- disable screen capture if no sticker is selected, check stickerImg at if check
+```
+  const onCapture = useCallback(
+    (ev) => {
+      if (stickerImg && canvasRef) {
+        const data = canvasRef.toDataURL("image/png");
+        setPictures(prevPictures => [...prevPictures, { dataUri: data, title }]);
+      }
+    },
+    [canvasRef, title]
+  );
+```

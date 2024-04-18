@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createUseStyles } from "react-jss";
 import { useWebcamCapture } from "./useWebcamCapture";
 // import logo from './logo.svg'
@@ -124,6 +124,20 @@ function App(props) {
     handleCapture, // callback function to trigger taking the picture
     pictures, // latest captured picture data object
   ] = useWebcamCapture(sticker?.img, title);
+
+  useEffect(() => {
+    const handleEscKey = (event) => {
+      if (event.key === 'Escape') {
+        // reset sticker and title
+        setSticker()
+        setTitle('...')
+      }
+    };
+    document.addEventListener('keydown', handleEscKey);
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, []);
 
   return (
     <div className={classes.App}>

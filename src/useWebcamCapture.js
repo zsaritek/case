@@ -99,7 +99,7 @@ export const useWebcamCapture = (stickerImg, title) => {
 
   const onCapture = useCallback(
     (ev) => {
-      if (canvasRef) {
+      if (stickerImg && canvasRef) {
         const data = canvasRef.toDataURL("image/png");
         setPictures(prevPictures => [...prevPictures, { dataUri: data, title }]);
       }
